@@ -1,41 +1,54 @@
-function getComputerChoice(){
 
-    const options=["rock", "paper", "scissors"];
-
-    const randomIndex = Math.floor(Math.random()*options.length);
-    return options[randomIndex];
-}
-
-
-function getHumanChoice(){
-
-
-    let userInput = prompt("Submit your choice");
-
-    return userInput;
-}
+let humanScore = 0;
+let computerScore = 0;
 
 
 
 
+    const rock = document.createElement("button");
+    rock.textContent="rock";
+    document.body.appendChild(rock);
+    const paper = document.createElement("button");
+    paper.textContent="paper"
+    document.body.appendChild(paper);
+    const scissors = document.createElement("button");
+    scissors.textContent="scissors";
+    document.body.appendChild(scissors);
 
+    function getComputerChoice(){
 
-  
-  const humanSelection = getHumanChoice();
-  const computerSelection = getComputerChoice();
-  
- 
-  
-  function playGame(){
-    let humanScore = 0;
-    let computerScore = 0; 
-
-
-    function playRound(humanChoice, computerChoice) {
-        humanChoice=humanChoice.toLowerCase();
+        const options=["rock", "paper", "scissors"];
     
-        console.log(`Human Choice: ${humanChoice}`);
-        console.log(`Computer Choice: ${computerChoice}`);
+        const randomIndex = Math.floor(Math.random()*options.length);
+        return options[randomIndex];
+    }
+
+function getHumanChoice(event){
+        const humanChoice=event.target.textContent.toLowerCase();
+        const computerChoice= getComputerChoice();
+        playRound(humanChoice, computerChoice); 
+        let humch=`Human Choice: ${humanChoice}`;
+        let comch=`Computer Choice: ${computerChoice}`;
+        let humsc= `Human Score: ${humanScore}`;
+        let comsc= `Computer Score: ${computerScore}`;
+        const div = document.createElement("div");
+        div.textContent= humch + ' '+ comch + ' ' + humsc + ' ' + comsc;
+        document.body.appendChild(div);
+        checkWinner();
+    }
+
+const buttons = [rock,paper,scissors];
+buttons.forEach(button =>{
+    button.addEventListener("click",getHumanChoice);
+});
+
+    
+    
+
+
+
+function playRound(humanChoice, computerChoice) {
+       
     
         if(humanChoice===computerChoice){console.log ("Its a tie!");}
         else if (humanChoice==="scissors"&& computerChoice==="paper"){console.log( "You won! Scissors beat paper");
@@ -57,34 +70,25 @@ function getHumanChoice(){
             computerScore++;
         }
     
-        console.log(`Human Score: ${humanScore} | Computer Score: ${computerScore}`);
+        
     }
-    const humanSelection1 = getHumanChoice();
-    const computerSelection1 = getComputerChoice();
-    playRound(humanSelection1, computerSelection1);
+    function checkWinner(){
+       if (humanScore=== 5 ){
+            announceWinner("Human");
+       } else if (computerScore === 5){
+            announceWinner("Computer");
+       }
+    }
+    function announceWinner(winner){
+        const resultDiv=document.createElement("div");
+        resultDiv.textContent=`${winner} wins the game!`;
+        document.body.appendChild(resultDiv);
+    }
+  
 
    
-    const humanSelection2 = getHumanChoice();
-    const computerSelection2 = getComputerChoice();
-    playRound(humanSelection2, computerSelection2);
-
-   
-    const humanSelection3 = getHumanChoice();
-    const computerSelection3 = getComputerChoice();
-    playRound(humanSelection3, computerSelection3);
-
     
-    const humanSelection4 = getHumanChoice();
-    const computerSelection4 = getComputerChoice();
-    playRound(humanSelection4, computerSelection4);
 
-   
-    const humanSelection5 = getHumanChoice();
-    const computerSelection5 = getComputerChoice();
-    playRound(humanSelection5, computerSelection5);
+    // treba napraviti opciju kada kliknes na dugme koje je povezano sa rock, da ono odigra partiju sa
+        //  humanselection = rock
 
-    console.log(`Final Score: Human ${humanScore} | Computer ${computerScore}`);
-
-  }
-
-  playGame();
